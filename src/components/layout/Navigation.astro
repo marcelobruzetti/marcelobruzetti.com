@@ -1,0 +1,36 @@
+---
+const navigationItems = [
+	{ href: '/', label: 'Home' },
+	{ href: '/about', label: 'About' },
+	{ href: '/experience', label: 'Experience' },
+	{ href: '/projects', label: 'Projects' },
+	{ href: '/notes', label: 'Notes' },
+] as const;
+
+const { pathname } = Astro.url;
+---
+
+<nav aria-label="Primary navigation">
+	<ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+		{
+			navigationItems.map(({ href, label }) => {
+				const isCurrent = href === '/' ? pathname === '/' : pathname.startsWith(href);
+
+				return (
+					<li>
+						<a
+							href={href}
+							aria-current={isCurrent ? 'page' : undefined}
+							class:list={{
+								'text-[color:var(--color-text)]': isCurrent,
+								'text-[color:var(--color-text-muted)] hover:text-[color:var(--color-text)]': !isCurrent,
+							}}
+						>
+							{label}
+						</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+</nav>

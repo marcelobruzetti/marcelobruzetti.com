@@ -1,0 +1,12 @@
+---
+import { site } from '../../data/site';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-[color:var(--color-border)]">
+	<div class="mx-auto flex max-w-5xl flex-col gap-1 px-5 py-6 text-sm text-[color:var(--color-text-muted)] sm:flex-row sm:items-center sm:justify-between">
+		<p>&copy; {currentYear} {site.name}</p>
+		<p>{site.role}</p>
+	</div>
+</footer>

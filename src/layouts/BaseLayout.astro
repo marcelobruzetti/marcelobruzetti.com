@@ -1,0 +1,36 @@
+---
+import Footer from '../components/layout/Footer.astro';
+import Header from '../components/layout/Header.astro';
+import { site } from '../data/site';
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title = site.name, description = site.description } = Astro.props;
+const documentTitle = title === site.name ? title : `${title} | ${site.name}`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<title>{documentTitle}</title>
+	</head>
+	<body class="bg-[color:var(--color-surface)] text-[color:var(--color-text)] antialiased">
+		<a class="skip-link" href="#main-content">Skip to main content</a>
+		<div class="flex min-h-screen flex-col">
+			<Header />
+			<main id="main-content" class="mx-auto w-full max-w-5xl flex-1 px-5 py-12">
+				<slot />
+			</main>
+			<Footer />
+		</div>
+	</body>
+</html>
