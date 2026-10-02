@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import NoteRow from '../../components/presentation/NoteRow.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const notes = await getCollection('notes', ({ data }) => import.meta.env.DEV || !data.draft);
+
+notes.sort(
+	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf() || a.id.localeCompare(b.id),
+);
+
+const formatDate = (date: Date) =>
+	new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date);
+---
+
+<BaseLayout title="Engineering Notes" description="Technical writing by Marcelo Bruzetti.">
+	<section class="content-section" aria-labelledby="notes-title">
+		<div class="page-container">
+			<header class="note-index-header">
+				<p class="eyebrow">Technical Writing</p>
+				<h1 id="notes-title">Engineering Notes</h1>
+				<p>Notes on systems, backend engineering, and the practice of building software.</p>
+			</header>
+
+			<div class="editorial-list">
+				{
+					notes.map((note) => (
+						<NoteRow
+							title={note.data.title}
+							category={note.data.category}
+							date={formatDate(note.data.publishDate)}
+							description={note.data.description}
+							href={`/notes/${note.id}`}
+						/>
+					))
+				}
+			</div>
+		</div>
+	</section>
+</BaseLayout>

@@ -3,17 +3,22 @@ interface Props {
 	title: string;
 	category: string;
 	date: string;
-	readingTime: string;
-	summary: string;
+	description: string;
+	readingTime?: string;
+	href?: string;
 }
 
-const { title, category, date, readingTime, summary } = Astro.props;
+const { title, category, date, description, readingTime, href } = Astro.props;
+const metadata = [category, date, readingTime].filter(Boolean);
 ---
 
 <article class="note-row">
 	<div>
-		<p class="metadata">{category} · {date} · {readingTime}</p>
-		<h3>{title}</h3>
+		<p class="metadata">{metadata.join(' · ')}</p>
+		<h3>{href ? <a class="note-title-link" href={href}>{title}</a> : title}</h3>
 	</div>
-	<p class="note-row-summary">{summary}</p>
+	<div class="note-row-details">
+		<p class="note-row-summary">{description}</p>
+		{href && <a class="note-link" href={href} aria-label={`Read ${title}`}>Read note <span aria-hidden="true">→</span></a>}
+	</div>
 </article>

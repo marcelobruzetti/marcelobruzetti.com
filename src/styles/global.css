@@ -342,7 +342,7 @@ a:focus-visible {
 	list-style: none;
 }
 
-.project-prose {
+.long-form-content {
 	max-width: 46rem;
 	margin-top: clamp(3rem, 7vw, 5.5rem);
 	color: var(--color-text-muted);
@@ -350,12 +350,12 @@ a:focus-visible {
 	line-height: 1.75;
 }
 
-.project-prose > :first-child {
+.long-form-content > :first-child {
 	margin-top: 0;
 }
 
-.project-prose h2,
-.project-prose h3 {
+.long-form-content h2,
+.long-form-content h3 {
 	margin: 2.75em 0 0.75em;
 	color: var(--color-text);
 	font-weight: 500;
@@ -363,40 +363,52 @@ a:focus-visible {
 	line-height: 1.15;
 }
 
-.project-prose h2 {
+.long-form-content h2 {
 	font-size: clamp(1.5rem, 3vw, 2rem);
 }
 
-.project-prose h3 {
+.long-form-content h3 {
 	font-size: clamp(1.25rem, 2.4vw, 1.5rem);
 }
 
-.project-prose p,
-.project-prose ul,
-.project-prose ol,
-.project-prose blockquote,
-.project-prose pre {
+.long-form-content p,
+.long-form-content ul,
+.long-form-content ol,
+.long-form-content blockquote,
+.long-form-content pre {
 	margin: 1.25rem 0 0;
 }
 
-.project-prose ul,
-.project-prose ol {
+.long-form-content ul,
+.long-form-content ol {
 	padding-left: 1.5rem;
 }
 
-.project-prose li + li {
-	margin-top: 0.4rem;
+.note-detail .long-form-content ul {
+	list-style-type: disc;
 }
 
-.project-prose a {
+.note-detail .long-form-content ol {
+	list-style-type: decimal;
+}
+
+.note-detail .long-form-content li::marker {
 	color: var(--color-accent);
 }
 
-.project-prose a:hover {
+.long-form-content li + li {
+	margin-top: 0.4rem;
+}
+
+.long-form-content a {
+	color: var(--color-accent);
+}
+
+.long-form-content a:hover {
 	color: var(--color-accent-hover);
 }
 
-.project-prose code {
+.long-form-content code {
 	padding: 0.1em 0.3em;
 	border: 1px solid var(--color-border);
 	background: var(--color-surface);
@@ -404,20 +416,20 @@ a:focus-visible {
 	font-size: 0.9em;
 }
 
-.project-prose pre {
+.long-form-content pre {
 	overflow-x: auto;
 	padding: 1rem;
 	border: 1px solid var(--color-border);
 	background: var(--color-surface);
 }
 
-.project-prose pre code {
+.long-form-content pre code {
 	padding: 0;
 	border: 0;
 	background: transparent;
 }
 
-.project-prose blockquote {
+.long-form-content blockquote {
 	margin-left: 0;
 	padding-left: 1rem;
 	border-left: 2px solid var(--color-accent);
@@ -440,15 +452,114 @@ a:focus-visible {
 	line-height: 1.18;
 }
 
-.note-row:hover h3 {
+.note-title-link {
+	color: inherit;
+	text-decoration: none;
+}
+
+.note-title-link:hover,
+.note-title-link:focus-visible {
 	color: var(--color-accent);
 }
 
+.note-row-details {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1rem;
+}
+
 .note-row-summary {
-	align-self: end;
+	margin: 0;
 	color: var(--color-text-muted);
 	font-size: 0.95rem;
 	line-height: 1.55;
+}
+
+.note-link {
+	color: var(--color-accent);
+	font-size: 0.9rem;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.note-link:hover {
+	color: var(--color-accent-hover);
+}
+
+.note-index-header {
+	max-width: 48rem;
+	margin-bottom: clamp(2rem, 4vw, 3.25rem);
+}
+
+.note-index-header h1,
+.note-detail-header h1 {
+	margin: 0.75rem 0 0;
+	font-weight: 500;
+	letter-spacing: -0.06em;
+	line-height: 0.95;
+	overflow-wrap: anywhere;
+}
+
+.note-index-header h1 {
+	font-size: clamp(2.5rem, 6vw, 5rem);
+}
+
+.note-detail-header h1 {
+	font-size: clamp(2.25rem, 5vw, 4rem);
+}
+
+.note-index-header > p:last-child {
+	margin: 1.5rem 0 0;
+	color: var(--color-text-muted);
+	font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+	line-height: 1.7;
+}
+
+.note-detail {
+	padding-top: clamp(3rem, 7vw, 5.5rem);
+}
+
+.note-back-link {
+	margin-bottom: clamp(2rem, 4vw, 3.25rem);
+}
+
+.note-detail-header {
+	max-width: 48rem;
+}
+
+.note-detail-description {
+	margin: 1.5rem 0 0;
+	color: var(--color-text-muted);
+	font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+	line-height: 1.7;
+}
+
+.note-detail-metadata {
+	margin-top: 2rem;
+}
+
+.note-detail-dates {
+	margin: 0;
+	color: var(--color-text-muted);
+	font-size: 0.95rem;
+	line-height: 1.5;
+}
+
+.note-detail-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1rem;
+	margin: 0.75rem 0 0;
+	padding: 0;
+	color: var(--color-accent);
+	font-family: var(--font-mono);
+	font-size: 0.7rem;
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	line-height: 1.5;
+	list-style: none;
+	text-transform: uppercase;
 }
 
 .experiments-list {

@@ -1,0 +1,67 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+interface Props {
+	note: CollectionEntry<'notes'>;
+}
+
+export async function getStaticPaths() {
+	const notes = await getCollection('notes', ({ data }) => import.meta.env.DEV || !data.draft);
+
+	return notes.map((note) => ({
+		params: { slug: note.id },
+		props: { note },
+	}));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+const formatDate = (date: Date) =>
+	new Intl.DateTimeFormat('en', {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric',
+		timeZone: 'UTC',
+	}).format(date);
+---
+
+<BaseLayout title={note.data.title} description={note.data.description}>
+	<article class="note-detail content-section">
+		<div class="page-container">
+			<nav class="note-back-link" aria-label="Note navigation">
+				<a class="text-link" href="/notes"><span aria-hidden="true">←</span> Back to notes</a>
+			</nav>
+
+			<header class="note-detail-header">
+				<p class="eyebrow">{note.data.category}</p>
+				<h1>{note.data.title}</h1>
+				<p class="note-detail-description">{note.data.description}</p>
+				<div class="note-detail-metadata">
+					<p class="note-detail-dates">
+						Published <time datetime={note.data.publishDate.toISOString()}>{formatDate(note.data.publishDate)}</time>
+						{
+							note.data.updatedDate && (
+								<>
+									<span aria-hidden="true"> · </span>
+									Updated <time datetime={note.data.updatedDate.toISOString()}>{formatDate(note.data.updatedDate)}</time>
+								</>
+							)
+						}
+					</p>
+					{
+						note.data.tags.length > 0 && (
+							<ul class="note-detail-tags" aria-label="Note tags">
+								{note.data.tags.map((tag) => <li>{tag}</li>)}
+							</ul>
+						)
+					}
+				</div>
+			</header>
+
+			<div class="long-form-content">
+				<Content />
+			</div>
+		</div>
+	</article>
+</BaseLayout>
