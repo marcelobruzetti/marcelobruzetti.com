@@ -2,6 +2,7 @@
 title: Garimpalar
 description: A property data ingestion project that collects and normalizes real estate listings from multiple sources.
 kind: project
+hasDetailPage: true
 category: Data Platform
 status: active
 draft: false

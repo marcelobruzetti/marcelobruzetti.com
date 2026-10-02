@@ -8,7 +8,4 @@ interface Props {
 const { id, index, title } = Astro.props;
 ---
 
-<div class="section-heading">
-	<p class="eyebrow">{index} / {title}</p>
-	<h2 id={id}>{title}</h2>
-</div>
+<h2 id={id} class="eyebrow section-heading">{index} / {title}</h2>

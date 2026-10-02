@@ -3,42 +3,74 @@ import { getCollection } from 'astro:content';
 import ProjectRow from '../../components/presentation/ProjectRow.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const projects = await getCollection(
-	'projects',
-	({ data }) => !data.draft && data.kind === 'project',
-);
+const entries = await getCollection('projects', ({ data }) => !data.draft);
 
-projects.sort(
-	(a, b) =>
-		(a.data.order ?? Number.MAX_SAFE_INTEGER) - (b.data.order ?? Number.MAX_SAFE_INTEGER) ||
-		a.id.localeCompare(b.id),
-);
+const sortEntries = (a: (typeof entries)[number], b: (typeof entries)[number]) =>
+	(a.data.order ?? Number.MAX_SAFE_INTEGER) - (b.data.order ?? Number.MAX_SAFE_INTEGER) ||
+	a.id.localeCompare(b.id);
+
+const projects = entries.filter((entry) => entry.data.kind === 'project').sort(sortEntries);
+const experiments = entries.filter((entry) => entry.data.kind === 'experiment').sort(sortEntries);
 ---
 
 <BaseLayout title="Projects" description="Engineering projects by Marcelo Bruzetti.">
-	<section class="content-section" aria-labelledby="projects-title">
+	<section class="content-section projects-page-header-section" aria-labelledby="projects-title">
 		<div class="page-container">
 			<header class="project-index-header">
 				<p class="eyebrow">Engineering Work</p>
 				<h1 id="projects-title">Projects</h1>
 			</header>
+		</div>
+	</section>
 
-			<div class="editorial-list">
-				{
-					projects.map((project, index) => (
-						<ProjectRow
-							number={String(index + 1).padStart(2, '0')}
-							name={project.data.title}
-							type={project.data.category ?? ''}
-							status={project.data.status}
-							description={project.data.description}
-							technologies={project.data.technologies}
-							featured={project.data.featured}
-							href={`/projects/${project.id}`}
-						/>
-					))
-				}
-			</div>
+	<section class="project-archive-section content-section content-section--surface" aria-labelledby="engineering-projects-title">
+		<div class="page-container">
+				<h2 id="engineering-projects-title" class="eyebrow project-archive-heading">01 / Engineering Projects</h2>
+				<div class="editorial-list">
+					{
+						projects.map((project, index) => {
+							const href = project.data.hasDetailPage ? `/projects/${project.id}` : undefined;
+
+							return (
+								<ProjectRow
+									number={String(index + 1).padStart(2, '0')}
+									name={project.data.title}
+									type={project.data.category ?? ''}
+									status={project.data.status}
+									description={project.data.description}
+									technologies={project.data.technologies}
+									featured={project.data.featured}
+									href={href}
+								/>
+							);
+						})
+					}
+				</div>
+		</div>
+	</section>
+
+	<section class="project-archive-section content-section" aria-labelledby="experiments-title">
+		<div class="page-container">
+				<h2 id="experiments-title" class="eyebrow project-archive-heading">02 / Experiments</h2>
+				<div class="editorial-list">
+					{
+						experiments.map((experiment, index) => {
+							const href = experiment.data.hasDetailPage ? `/projects/${experiment.id}` : undefined;
+
+							return (
+								<ProjectRow
+									number={String(index + 1).padStart(2, '0')}
+									name={experiment.data.title}
+									type={experiment.data.category ?? ''}
+									status={experiment.data.status}
+									description={experiment.data.description}
+									technologies={experiment.data.technologies}
+									href={href}
+								/>
+							);
+						})
+					}
+				</div>
 		</div>
 	</section>
 </BaseLayout>

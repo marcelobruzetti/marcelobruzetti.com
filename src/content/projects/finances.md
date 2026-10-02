@@ -3,6 +3,7 @@ title: Finances
 slug: finances
 description: An experiment in turning financial data into a clearer personal operating system.
 kind: project
+hasDetailPage: true
 category: Personal Finance Software
 technologies:
   - TypeScript

@@ -28,12 +28,10 @@ const projectMetadata = [type, getProjectStatusLabel(status)].filter(Boolean);
 	<div class="project-details">
 		<p class="metadata">{technologies.join(' · ')}</p>
 		{
-			href ? (
+			href && (
 				<a class="project-link" href={href} aria-label={`Explore ${name}`}>
 					Explore project <span aria-hidden="true">→</span>
 				</a>
-			) : (
-				<p class="project-link">Explore project <span aria-hidden="true">→</span></p>
 			)
 		}
 	</div>

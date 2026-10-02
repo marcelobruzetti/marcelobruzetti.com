@@ -41,6 +41,7 @@ const projects = defineCollection({
 		status: z.enum(['active', 'completed', 'archived']).optional(),
 		draft: z.boolean().default(false),
 		featured: z.boolean().default(false),
+		hasDetailPage: z.boolean().default(false),
 		technologies: z.array(z.string()).default([]),
 		repositoryUrl: z.string().url().optional(),
 		liveUrl: z.string().url().optional(),

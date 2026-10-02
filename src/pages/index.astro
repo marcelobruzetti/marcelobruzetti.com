@@ -65,18 +65,22 @@ const experiments = publicProjects.filter(({ data }) => data.kind === 'experimen
 			<SectionHeading id="selected-work-title" index="01" title="Selected Work" />
 			<div class="editorial-list">
 				{
-					projects.map((project, index) => (
-						<ProjectRow
-							number={String(index + 1).padStart(2, '0')}
-							name={project.data.title}
-							type={project.data.category ?? ''}
-							status={project.data.status}
-							description={project.data.description}
-							technologies={project.data.technologies}
-							featured={project.data.featured}
-							href={`/projects/${project.id}`}
-						/>
-					))
+					projects.map((project, index) => {
+						const href = project.data.hasDetailPage ? `/projects/${project.id}` : undefined;
+
+						return (
+							<ProjectRow
+								number={String(index + 1).padStart(2, '0')}
+								name={project.data.title}
+								type={project.data.category ?? ''}
+								status={project.data.status}
+								description={project.data.description}
+								technologies={project.data.technologies}
+								featured={project.data.featured}
+								href={href}
+							/>
+						);
+					})
 				}
 			</div>
 		</div>
