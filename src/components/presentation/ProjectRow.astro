@@ -4,7 +4,7 @@ interface Props {
 	name: string;
 	type: string;
 	description: string;
-	technologies: string;
+	technologies: string[];
 	featured?: boolean;
 }
 
@@ -19,7 +19,7 @@ const { number, name, type, description, technologies, featured = false } = Astr
 		<p class="row-description">{description}</p>
 	</div>
 	<div class="project-details">
-		<p class="metadata">{technologies}</p>
+		<p class="metadata">{technologies.join(' · ')}</p>
 		<p class="project-link">Explore project <span aria-hidden="true">→</span></p>
 	</div>
 </article>

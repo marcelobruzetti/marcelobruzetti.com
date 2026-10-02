@@ -3,8 +3,16 @@ import NoteRow from '../components/presentation/NoteRow.astro';
 import ProjectRow from '../components/presentation/ProjectRow.astro';
 import SectionHeading from '../components/presentation/SectionHeading.astro';
 import SocialIcon from '../components/ui/SocialIcon.astro';
+import { getCollection } from 'astro:content';
 import { site } from '../data/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const publicProjects = await getCollection('projects', ({ data }) => !data.draft);
+const sortProjects = (a: (typeof publicProjects)[number], b: (typeof publicProjects)[number]) =>
+	(a.data.order ?? Number.MAX_SAFE_INTEGER) - (b.data.order ?? Number.MAX_SAFE_INTEGER) ||
+	a.id.localeCompare(b.id);
+const projects = publicProjects.filter(({ data }) => data.kind === 'project').sort(sortProjects);
+const experiments = publicProjects.filter(({ data }) => data.kind === 'experiment').sort(sortProjects);
 ---
 
 <BaseLayout>
@@ -56,21 +64,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		<div class="page-container">
 			<SectionHeading id="selected-work-title" index="01" title="Selected Work" />
 			<div class="editorial-list">
-				<ProjectRow
-					number="01"
-					name="Garimpalar"
-					type="Data Platform"
-					description="A data-focused platform for collecting, structuring, and making complex information useful."
-					technologies="Python · Crawling · Data Pipelines"
-					featured
-				/>
-				<ProjectRow
-					number="02"
-					name="Finances"
-					type="Personal Finance Software"
-					description="An experiment in turning financial data into a clearer personal operating system."
-					technologies="TypeScript · PostgreSQL"
-				/>
+				{
+					projects.map((project, index) => (
+						<ProjectRow
+							number={String(index + 1).padStart(2, '0')}
+							name={project.data.title}
+							type={project.data.category ?? ''}
+							description={project.data.description}
+							technologies={project.data.technologies}
+							featured={project.data.featured}
+						/>
+					))
+				}
 			</div>
 		</div>
 	</section>
@@ -101,16 +106,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		<div class="page-container">
 			<SectionHeading id="experiments-title" index="03" title="Experiments" />
 			<div class="experiments-list">
-				<article class="experiment-row">
-					<p class="metadata">Experiment / 01</p>
-					<h3>Bard's Keys</h3>
-					<p>A keyboard-led game development experiment.</p>
-				</article>
-				<article class="experiment-row">
-					<p class="metadata">Experiment / 02</p>
-					<h3>Camp-Fire</h3>
-					<p>A small game development experiment in atmosphere and interaction.</p>
-				</article>
+				{
+					experiments.map((experiment, index) => (
+						<article class="experiment-row">
+							<p class="metadata">Experiment / {String(index + 1).padStart(2, '0')}</p>
+							<h3>{experiment.data.title}</h3>
+							<p>{experiment.data.description}</p>
+						</article>
+					))
+				}
 			</div>
 		</div>
 	</section>
