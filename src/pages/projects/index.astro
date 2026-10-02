@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectRow from '../../components/presentation/ProjectRow.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = await getCollection(
+	'projects',
+	({ data }) => !data.draft && data.kind === 'project',
+);
+
+projects.sort(
+	(a, b) =>
+		(a.data.order ?? Number.MAX_SAFE_INTEGER) - (b.data.order ?? Number.MAX_SAFE_INTEGER) ||
+		a.id.localeCompare(b.id),
+);
+---
+
+<BaseLayout title="Projects" description="Engineering projects by Marcelo Bruzetti.">
+	<section class="content-section" aria-labelledby="projects-title">
+		<div class="page-container">
+			<header class="project-index-header">
+				<p class="eyebrow">Engineering Work</p>
+				<h1 id="projects-title">Projects</h1>
+			</header>
+
+			<div class="editorial-list">
+				{
+					projects.map((project, index) => (
+						<ProjectRow
+							number={String(index + 1).padStart(2, '0')}
+							name={project.data.title}
+							type={project.data.category ?? ''}
+							description={project.data.description}
+							technologies={project.data.technologies}
+							featured={project.data.featured}
+							href={`/projects/${project.id}`}
+						/>
+					))
+				}
+			</div>
+		</div>
+	</section>
+</BaseLayout>

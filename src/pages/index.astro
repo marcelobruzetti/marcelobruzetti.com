@@ -73,6 +73,7 @@ const experiments = publicProjects.filter(({ data }) => data.kind === 'experimen
 							description={project.data.description}
 							technologies={project.data.technologies}
 							featured={project.data.featured}
+							href={`/projects/${project.id}`}
 						/>
 					))
 				}

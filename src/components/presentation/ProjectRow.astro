@@ -6,20 +6,31 @@ interface Props {
 	description: string;
 	technologies: string[];
 	featured?: boolean;
+	href?: string;
 }
 
-const { number, name, type, description, technologies, featured = false } = Astro.props;
+const { number, name, type, description, technologies, featured = false, href } = Astro.props;
 ---
 
 <article class:list={['project-row', { 'project-featured': featured }]}>
 	<p class="project-number">{number}</p>
 	<div>
-		<h3>{name}</h3>
+		<h3>
+			{href ? <a class="project-title-link" href={href}>{name}</a> : name}
+		</h3>
 		<p class="project-type">{type}</p>
 		<p class="row-description">{description}</p>
 	</div>
 	<div class="project-details">
 		<p class="metadata">{technologies.join(' · ')}</p>
-		<p class="project-link">Explore project <span aria-hidden="true">→</span></p>
+		{
+			href ? (
+				<a class="project-link" href={href} aria-label={`Explore ${name}`}>
+					Explore project <span aria-hidden="true">→</span>
+				</a>
+			) : (
+				<p class="project-link">Explore project <span aria-hidden="true">→</span></p>
+			)
+		}
 	</div>
 </article>
