@@ -1,0 +1,21 @@
+---
+import ExperienceEntry from '../components/presentation/ExperienceEntry.astro';
+import { experience } from '../data/experience';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Experience" description="Professional experience of Marcelo Bruzetti, Senior Software Engineer.">
+	<section class="experience content-section" aria-labelledby="experience-title">
+		<div class="page-container">
+			<header class="editorial-page-header experience-page-header">
+				<p class="eyebrow">Professional History</p>
+				<h1 id="experience-title">Experience</h1>
+				<p>Nearly two decades of software development across backend systems, enterprise applications, SaaS platforms, integrations, data collection, product development, and technical leadership.</p>
+			</header>
+
+			<div class="experience-list">
+				{experience.map((entry) => <ExperienceEntry entry={entry} />)}
+			</div>
+		</div>
+	</section>
+</BaseLayout>

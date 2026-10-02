@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About" description="About Marcelo Bruzetti, a Senior Software Engineer.">
+	<section class="about content-section" aria-labelledby="about-title">
+		<div class="page-container">
+			<header class="editorial-page-header">
+				<p class="eyebrow">Engineering Profile</p>
+				<h1 id="about-title">About</h1>
+				<div class="about-lead">
+					<p>I'm a Senior Software Engineer with a strong backend focus, working across software architecture, distributed systems, integrations, and data-intensive applications.</p>
+					<p>Over the years, I've moved between hands-on engineering, technical leadership, and building products from the ground up. I enjoy working on problems where software has to interact with real systems, external data, infrastructure, and evolving business requirements.</p>
+				</div>
+			</header>
+
+			<div class="about-sections">
+				<section aria-labelledby="building-systems-title">
+					<h2 id="building-systems-title">Building software systems</h2>
+					<p>I started my career building vehicle-tracking software, working with GPS devices, telemetry data, geolocation, and web applications. That early exposure to systems that connected software with external devices and data shaped many of the problems I still enjoy working on today.</p>
+					<p>Since then, I've worked on enterprise applications, SaaS platforms, web crawling and data-ingestion systems, cloud services, integrations, APIs, and distributed architectures.</p>
+					<p>My strongest production experience today is in backend engineering, particularly with Node.js, TypeScript, PostgreSQL, GraphQL, and Google Cloud Platform. But I tend to think about systems beyond a single technology: how data moves through them, where boundaries should exist, how components fail, and how the architecture can evolve as requirements change.</p>
+				</section>
+
+				<section aria-labelledby="engineering-beyond-code-title">
+					<h2 id="engineering-beyond-code-title">Engineering beyond the code</h2>
+					<p>I like staying close to implementation while also understanding the larger engineering problem.</p>
+					<p>In different roles, that has meant designing backend services, investigating production bottlenecks, evolving architectures, reviewing code, supporting other engineers, and working with product teams to turn business requirements into technical decisions.</p>
+					<p>I've also led engineering teams and squads while remaining hands-on. That experience reinforced an approach I value: architecture should help teams deliver reliable software, not become an objective by itself.</p>
+					<p>I prefer pragmatic solutions, explicit trade-offs, clear boundaries, and systems that can evolve without unnecessary complexity.</p>
+				</section>
+
+				<section aria-labelledby="expanding-toolbox-title">
+					<h2 id="expanding-toolbox-title">Expanding the toolbox</h2>
+					<p>I continue to deliberately expand the tools and ideas I work with.</p>
+					<p>I'm currently using Python in data-ingestion and crawling projects, exploring Go for backend and systems-oriented development, and deepening my study of system design and distributed systems.</p>
+					<p>AI-assisted development has also become part of my day-to-day engineering workflow. I use coding agents to support implementation, refactoring, testing, debugging, code review, and exploration while keeping architecture, validation, and engineering decisions under human review.</p>
+					<p>Engineering Notes on this site are where I document some of what I'm studying and thinking about. Projects are where those ideas become working software.</p>
+				</section>
+			</div>
+
+			<nav class="about-links" aria-label="Explore Marcelo's work">
+				<a class="text-link" href="/projects">View projects <span aria-hidden="true">→</span></a>
+				<a class="text-link" href="/notes">Read engineering notes <span aria-hidden="true">→</span></a>
+			</nav>
+		</div>
+	</section>
+</BaseLayout>

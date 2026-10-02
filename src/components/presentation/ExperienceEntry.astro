@@ -1,0 +1,44 @@
+---
+import type { ExperienceEntry as ExperienceEntryData } from '../../data/experience';
+
+interface Props {
+	entry: ExperienceEntryData;
+}
+
+const { entry } = Astro.props;
+
+const formatDate = (date: string) => {
+	const [year, month] = date.split('-').map(Number);
+	return new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric', timeZone: 'UTC' })
+		.format(new Date(Date.UTC(year, month - 1, 1)))
+		.toUpperCase();
+};
+---
+
+<article class="experience-entry">
+	<div class="experience-period">
+		<time datetime={entry.startDate}>{formatDate(entry.startDate)}</time>
+		<span aria-hidden="true">—</span>
+		{entry.endDate ? (
+			<time datetime={entry.endDate}>{formatDate(entry.endDate)}</time>
+		) : (
+			<span>Present</span>
+		)}
+	</div>
+	<div class="experience-content">
+		<header>
+			<p class="eyebrow">{entry.company}</p>
+			<h2>{entry.role}</h2>
+			<p class="experience-context">{entry.context}</p>
+		</header>
+		<ul class="experience-contributions">
+			{entry.contributions.map((contribution) => <li>{contribution}</li>)}
+		</ul>
+		{entry.technologies && entry.technologies.length > 0 && (
+			<div class="experience-technologies">
+				<p class="metadata">Technologies</p>
+				<p>{entry.technologies.join(' · ')}</p>
+			</div>
+		)}
+	</div>
+</article>
