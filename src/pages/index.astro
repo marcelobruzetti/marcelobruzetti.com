@@ -13,6 +13,18 @@ const sortProjects = (a: (typeof publicProjects)[number], b: (typeof publicProje
 	a.id.localeCompare(b.id);
 const projects = publicProjects.filter(({ data }) => data.kind === 'project').sort(sortProjects);
 const experiments = publicProjects.filter(({ data }) => data.kind === 'experiment').sort(sortProjects);
+const notes = (await getCollection('notes', ({ data }) => !data.draft))
+	.sort(
+		(a, b) =>
+			Number(b.data.featured) - Number(a.data.featured) ||
+			b.data.publishDate.valueOf() - a.data.publishDate.valueOf() ||
+			a.id.localeCompare(b.id),
+	)
+	.slice(0, 3);
+const formatDate = (date: Date) =>
+	new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date);
+const engineeringNotesIndex = notes.length > 0 ? '02' : undefined;
+const experimentsIndex = notes.length > 0 ? '03' : '02';
 ---
 
 <BaseLayout>
@@ -26,7 +38,11 @@ const experiments = publicProjects.filter(({ data }) => data.kind === 'experimen
 			</p>
 			<div class="hero-links">
 				<a class="text-link" href="#selected-work">View my work <span aria-hidden="true">→</span></a>
-				<a class="text-link" href="#engineering-notes">Read my notes <span aria-hidden="true">→</span></a>
+				{
+					notes.length > 0 && (
+						<a class="text-link" href="#engineering-notes">Read my notes <span aria-hidden="true">→</span></a>
+					)
+				}
 			</div>
 			<ul class="social-links" aria-label="Social profiles">
 				<li>
@@ -86,31 +102,30 @@ const experiments = publicProjects.filter(({ data }) => data.kind === 'experimen
 		</div>
 	</section>
 
-	<section id="engineering-notes" class="content-section" aria-labelledby="engineering-notes-title">
-		<div class="page-container">
-			<SectionHeading id="engineering-notes-title" index="02" title="Engineering Notes" />
-			<div class="editorial-list">
-				<NoteRow
-					title="Rate Limiting in Distributed Systems"
-					category="System Design"
-					date="Oct 2026"
-					readingTime="8 min read"
-					description="A practical framework for choosing limits, coordination strategies, and failure behavior."
-				/>
-				<NoteRow
-					title="Caching Strategies and Their Trade-offs"
-					category="System Design"
-					date="Oct 2026"
-					readingTime="6 min read"
-					description="How cache placement, invalidation, and consistency shape system behavior."
-				/>
-			</div>
-		</div>
-	</section>
+	{
+		notes.length > 0 && (
+			<section id="engineering-notes" class="content-section" aria-labelledby="engineering-notes-title">
+				<div class="page-container">
+					<SectionHeading id="engineering-notes-title" index={engineeringNotesIndex!} title="Engineering Notes" />
+					<div class="editorial-list">
+						{notes.map((note) => (
+							<NoteRow
+								title={note.data.title}
+								category={note.data.category}
+								date={formatDate(note.data.publishDate)}
+								description={note.data.description}
+								href={`/notes/${note.id}`}
+							/>
+						))}
+					</div>
+				</div>
+			</section>
+		)
+	}
 
 	<section class="content-section content-section--surface" aria-labelledby="experiments-title">
 		<div class="page-container">
-			<SectionHeading id="experiments-title" index="03" title="Experiments" />
+			<SectionHeading id="experiments-title" index={experimentsIndex} title="Experiments" />
 			<div class="experiments-list">
 				{
 					experiments.map((experiment, index) => (
