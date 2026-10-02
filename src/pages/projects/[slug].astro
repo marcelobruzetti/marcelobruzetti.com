@@ -1,6 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projectStatusLabels } from '../../utils/project-status';
 
 interface Props {
 	project: CollectionEntry<'projects'>;
@@ -46,7 +47,7 @@ const { Content } = await render(project);
 							{project.data.status && (
 								<div>
 									<dt>Status</dt>
-									<dd>{project.data.status}</dd>
+									<dd>{projectStatusLabels[project.data.status]}</dd>
 								</div>
 							)}
 							{project.data.technologies.length > 0 && (
