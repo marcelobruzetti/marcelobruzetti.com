@@ -23,11 +23,11 @@ const documentTitle = title === site.name ? title : `${title} | ${site.name}`;
 		<link rel="icon" href="/favicon.ico" />
 		<title>{documentTitle}</title>
 	</head>
-	<body class="bg-[color:var(--color-surface)] text-[color:var(--color-text)] antialiased">
+	<body>
 		<a class="skip-link" href="#main-content">Skip to main content</a>
 		<div class="flex min-h-screen flex-col">
 			<Header />
-			<main id="main-content" class="mx-auto w-full max-w-5xl flex-1 px-5 py-12">
+			<main id="main-content" class="flex-1">
 				<slot />
 			</main>
 			<Footer />

@@ -1,6 +1,5 @@
 ---
 const navigationItems = [
-	{ href: '/', label: 'Home' },
 	{ href: '/about', label: 'About' },
 	{ href: '/experience', label: 'Experience' },
 	{ href: '/projects', label: 'Projects' },
@@ -11,7 +10,7 @@ const { pathname } = Astro.url;
 ---
 
 <nav aria-label="Primary navigation">
-	<ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+	<ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[color:var(--color-text-muted)]">
 		{
 			navigationItems.map(({ href, label }) => {
 				const isCurrent = href === '/' ? pathname === '/' : pathname.startsWith(href);
@@ -22,8 +21,8 @@ const { pathname } = Astro.url;
 							href={href}
 							aria-current={isCurrent ? 'page' : undefined}
 							class:list={{
-								'text-[color:var(--color-text)]': isCurrent,
-								'text-[color:var(--color-text-muted)] hover:text-[color:var(--color-text)]': !isCurrent,
+								'text-[color:var(--color-text)] underline decoration-[color:var(--color-border)] underline-offset-8': isCurrent,
+								'hover:text-[color:var(--color-text)]': !isCurrent,
 							}}
 						>
 							{label}

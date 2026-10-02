@@ -1,15 +1,117 @@
 ---
+import NoteRow from '../components/presentation/NoteRow.astro';
+import ProjectRow from '../components/presentation/ProjectRow.astro';
+import SectionHeading from '../components/presentation/SectionHeading.astro';
+import SocialIcon from '../components/ui/SocialIcon.astro';
+import { site } from '../data/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout>
-	<section aria-labelledby="page-title" class="max-w-2xl">
-		<p class="mb-4 text-sm text-[color:var(--color-text-muted)]">{`// marcelobruzetti.com`}</p>
-		<h1 id="page-title" class="text-3xl font-semibold tracking-tight sm:text-4xl">
-			Senior Software Engineer
-		</h1>
-		<p class="mt-5 text-lg leading-8 text-[color:var(--color-text-muted)]">
-			A personal space for engineering work, technical notes, and software projects.
-		</p>
+	<section>
+		<div class="page-container">
+		<section class="hero" aria-labelledby="page-title">
+			<h1 id="page-title">Marcelo Bruzetti</h1>
+			<p class="hero-role">Senior Software Engineer</p>
+			<p class="hero-summary">
+				Building backend systems, distributed architectures, and data-intensive applications.
+			</p>
+			<div class="hero-links">
+				<a class="text-link" href="#selected-work">View my work <span aria-hidden="true">→</span></a>
+				<a class="text-link" href="#engineering-notes">Read my notes <span aria-hidden="true">→</span></a>
+			</div>
+			<ul class="social-links" aria-label="Social profiles">
+				<li>
+					<a
+						href={site.social.github.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						title="GitHub (opens in a new tab)"
+						aria-label="GitHub (opens in a new tab)"
+					>
+						<SocialIcon name="github" />
+					</a>
+				</li>
+				<li>
+					<a
+						href={site.social.linkedin.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						title="LinkedIn (opens in a new tab)"
+						aria-label="LinkedIn (opens in a new tab)"
+					>
+						<SocialIcon name="linkedin" />
+					</a>
+				</li>
+			</ul>
+		</section>
+		</div>
+	</section>
+
+	<section
+		id="selected-work"
+		class="content-section content-section--surface"
+		aria-labelledby="selected-work-title"
+	>
+		<div class="page-container">
+			<SectionHeading id="selected-work-title" index="01" title="Selected Work" />
+			<div class="editorial-list">
+				<ProjectRow
+					number="01"
+					name="Garimpalar"
+					type="Data Platform"
+					description="A data-focused platform for collecting, structuring, and making complex information useful."
+					technologies="Python · Crawling · Data Pipelines"
+					featured
+				/>
+				<ProjectRow
+					number="02"
+					name="Finances"
+					type="Personal Finance Software"
+					description="An experiment in turning financial data into a clearer personal operating system."
+					technologies="TypeScript · PostgreSQL"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<section id="engineering-notes" class="content-section" aria-labelledby="engineering-notes-title">
+		<div class="page-container">
+			<SectionHeading id="engineering-notes-title" index="02" title="Engineering Notes" />
+			<div class="editorial-list">
+				<NoteRow
+					title="Rate Limiting in Distributed Systems"
+					category="System Design"
+					date="Oct 2026"
+					readingTime="8 min read"
+					summary="A practical framework for choosing limits, coordination strategies, and failure behavior."
+				/>
+				<NoteRow
+					title="Caching Strategies and Their Trade-offs"
+					category="System Design"
+					date="Oct 2026"
+					readingTime="6 min read"
+					summary="How cache placement, invalidation, and consistency shape system behavior."
+				/>
+			</div>
+		</div>
+	</section>
+
+	<section class="content-section content-section--surface" aria-labelledby="experiments-title">
+		<div class="page-container">
+			<SectionHeading id="experiments-title" index="03" title="Experiments" />
+			<div class="experiments-list">
+				<article class="experiment-row">
+					<p class="metadata">Experiment / 01</p>
+					<h3>Bard's Keys</h3>
+					<p>A keyboard-led game development experiment.</p>
+				</article>
+				<article class="experiment-row">
+					<p class="metadata">Experiment / 02</p>
+					<h3>Camp-Fire</h3>
+					<p>A small game development experiment in atmosphere and interaction.</p>
+				</article>
+			</div>
+		</div>
 	</section>
 </BaseLayout>
