@@ -5,6 +5,9 @@ export const site = {
 		'Personal website of Marcelo Bruzetti, a Senior Software Engineer focused on backend systems, software architecture, and technical writing.',
 	url: 'https://marcelobruzetti.com',
 	locale: 'en_US',
+	contact: {
+		email: 'marcelo@marcelobruzetti.com',
+	},
 	social: {
 		github: {
 			label: 'GitHub',

@@ -178,6 +178,121 @@ a:focus-visible {
 	background: var(--color-surface);
 }
 
+.contact-cta {
+	max-width: 46rem;
+	padding-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.contact-cta h2 {
+	margin: 0;
+	font-size: clamp(2rem, 4vw, 3.25rem);
+	font-weight: 500;
+	letter-spacing: -0.05em;
+	line-height: 1;
+}
+
+.contact-cta p {
+	max-width: 41rem;
+	margin: 1.25rem 0 0;
+	color: var(--color-text-muted);
+	font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+	line-height: 1.7;
+}
+
+.contact-cta .text-link {
+	display: inline-block;
+	margin-top: 2rem;
+}
+
+.contact-page-header {
+	max-width: 42rem;
+	margin-bottom: clamp(4rem, 9vw, 8rem);
+}
+
+.contact-channels {
+	display: grid;
+	grid-template-columns: minmax(0, 1.35fr) minmax(14rem, 0.65fr);
+	gap: clamp(3rem, 9vw, 9rem);
+	max-width: 64rem;
+	border-top: 1px solid var(--color-border);
+}
+
+.contact-primary,
+.contact-secondary {
+	padding-top: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.contact-email {
+	display: inline-block;
+	max-width: 100%;
+	margin-top: 1.25rem;
+	color: var(--color-accent);
+	font-size: clamp(1.5rem, 3vw, 2.5rem);
+	font-weight: 500;
+	letter-spacing: -0.045em;
+	line-height: 1.1;
+	text-decoration-thickness: 1px;
+	overflow-wrap: anywhere;
+}
+
+.contact-email:hover {
+	color: var(--color-accent-hover);
+}
+
+.contact-social-list {
+	margin: 1.25rem 0 0;
+	padding: 0;
+	border-top: 1px solid var(--color-border);
+	list-style: none;
+}
+
+.contact-social-list li + li {
+	margin-top: 1rem;
+}
+
+.contact-social-link {
+	display: grid;
+	grid-template-columns: 1.25rem minmax(0, 1fr);
+	gap: 0.75rem;
+	align-items: start;
+	padding-block: 0.25rem;
+	font-size: 0.95rem;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.contact-social-link svg {
+	width: 1.125rem;
+	height: 1.125rem;
+	margin-top: 0.1rem;
+	color: var(--color-text-muted);
+}
+
+.contact-social-content {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	min-width: 0;
+}
+
+.contact-social-link:hover {
+	color: var(--color-accent-hover);
+}
+
+.contact-social-handle {
+	color: var(--color-text-muted);
+	font-size: 0.9rem;
+	font-weight: 400;
+}
+
+.contact-social-link:hover .contact-social-handle {
+	color: var(--color-accent-hover);
+}
+
+.contact-social-link:hover svg {
+	color: var(--color-accent-hover);
+}
+
 .editorial-list {
 	border-top: 1px solid var(--color-border);
 }
@@ -747,9 +862,10 @@ a:focus-visible {
 @media (max-width: 48rem) {
 	.project-row,
 	.note-row,
-	.experience-entry {
+	.experience-entry,
+	.contact-channels {
 		grid-template-columns: 1fr;
-		gap: 0.75rem;
+		gap: 2.5rem;
 	}
 
 	.project-number {

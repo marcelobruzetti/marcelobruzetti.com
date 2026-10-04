@@ -3,7 +3,7 @@ import { site } from '../../data/site';
 import Navigation from './Navigation.astro';
 ---
 
-<header class="border-b border-[color:var(--color-border)]">
+<header class="sticky top-0 z-20 border-b border-[color:var(--color-border)] bg-[color:var(--color-canvas)]">
 	<div class="page-container flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:justify-between">
 		<a href="/" class="text-sm font-medium no-underline">
 			{site.name}

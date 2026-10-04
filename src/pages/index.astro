@@ -23,8 +23,14 @@ const notes = (await getCollection('notes', ({ data }) => !data.draft))
 	.slice(0, 3);
 const formatDate = (date: Date) =>
 	new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date);
-const engineeringNotesIndex = notes.length > 0 ? '02' : undefined;
-const experimentsIndex = notes.length > 0 ? '03' : '02';
+const homepageSections = [
+	'selected-work',
+	...(notes.length > 0 ? ['engineering-notes'] : []),
+	'experiments',
+	'contact',
+];
+const sectionIndex = (section: string) =>
+	String(homepageSections.indexOf(section) + 1).padStart(2, '0');
 ---
 
 <BaseLayout>
@@ -78,7 +84,7 @@ const experimentsIndex = notes.length > 0 ? '03' : '02';
 		aria-labelledby="selected-work-title"
 	>
 		<div class="page-container">
-			<SectionHeading id="selected-work-title" index="01" title="Selected Work" />
+			<SectionHeading id="selected-work-title" index={sectionIndex('selected-work')} title="Selected Work" />
 			<div class="editorial-list">
 				{
 					projects.map((project, index) => {
@@ -106,7 +112,7 @@ const experimentsIndex = notes.length > 0 ? '03' : '02';
 		notes.length > 0 && (
 			<section id="engineering-notes" class="content-section" aria-labelledby="engineering-notes-title">
 				<div class="page-container">
-					<SectionHeading id="engineering-notes-title" index={engineeringNotesIndex!} title="Engineering Notes" />
+					<SectionHeading id="engineering-notes-title" index={sectionIndex('engineering-notes')} title="Engineering Notes" />
 					<div class="editorial-list">
 						{notes.map((note) => (
 							<NoteRow
@@ -125,7 +131,7 @@ const experimentsIndex = notes.length > 0 ? '03' : '02';
 
 	<section class="content-section content-section--surface" aria-labelledby="experiments-title">
 		<div class="page-container">
-			<SectionHeading id="experiments-title" index={experimentsIndex} title="Experiments" />
+			<SectionHeading id="experiments-title" index={sectionIndex('experiments')} title="Experiments" />
 			<div class="experiments-list">
 				{
 					experiments.map((experiment, index) => (
@@ -136,6 +142,17 @@ const experimentsIndex = notes.length > 0 ? '03' : '02';
 						</article>
 					))
 				}
+			</div>
+		</div>
+	</section>
+
+	<section class="content-section" aria-labelledby="contact-title">
+		<div class="page-container">
+			<SectionHeading id="contact-title" index={sectionIndex('contact')} title="Contact" />
+			<div class="contact-cta">
+				<h2>Let's connect.</h2>
+				<p>Interested in working together, discussing software engineering, or just want to say hello?</p>
+				<a class="text-link" href="/contact">Get in touch <span aria-hidden="true">→</span></a>
 			</div>
 		</div>
 	</section>

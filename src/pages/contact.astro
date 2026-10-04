@@ -1,0 +1,56 @@
+---
+import { site } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SocialIcon from '../components/ui/SocialIcon.astro';
+
+const socialChannels = [
+	{ ...site.social.github, icon: 'github' },
+	{ ...site.social.linkedin, icon: 'linkedin' },
+] as const;
+---
+
+<BaseLayout title="Contact" description="Contact Marcelo Bruzetti about software engineering and consulting.">
+	<section class="contact content-section" aria-labelledby="contact-title">
+		<div class="page-container">
+			<header class="editorial-page-header contact-page-header">
+				<p class="eyebrow">Contact</p>
+				<h1 id="contact-title">Let's connect.</h1>
+				<p>Interested in working together, discussing software engineering, or just want to say hello?</p>
+			</header>
+
+			<div class="contact-channels">
+				<section class="contact-primary" aria-labelledby="email-label">
+					<p id="email-label" class="metadata">Email</p>
+					<a class="contact-email" href={`mailto:${site.contact.email}`}>
+						{site.contact.email} <span aria-hidden="true">→</span>
+					</a>
+				</section>
+
+				<section class="contact-secondary" aria-labelledby="social-label">
+					<p id="social-label" class="metadata">Social</p>
+					<ul class="contact-social-list">
+						{
+							socialChannels.map(({ label, url, icon }) => (
+								<li>
+									<a
+										class="contact-social-link"
+										href={url}
+										target="_blank"
+										rel="noopener noreferrer"
+										aria-label={`Visit Marcelo's ${label} profile (opens in a new tab)`}
+									>
+										<SocialIcon name={icon} />
+										<span class="contact-social-content">
+											<span>{label}</span>
+											<span class="contact-social-handle">marcelobruzetti <span aria-hidden="true">→</span></span>
+										</span>
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</section>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
