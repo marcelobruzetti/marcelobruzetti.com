@@ -6,7 +6,7 @@ export const site = {
 	url: 'https://marcelobruzetti.com',
 	locale: 'en_US',
 	contact: {
-		email: 'marcelo@marcelobruzetti.com',
+		email: 'mbruzetti@gmail.com',
 	},
 	social: {
 		github: {

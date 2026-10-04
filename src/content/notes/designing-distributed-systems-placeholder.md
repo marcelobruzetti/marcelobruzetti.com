@@ -3,7 +3,7 @@ title: Designing Distributed Systems (Placeholder)
 slug: designing-distributed-systems-placeholder
 description: Placeholder content used only to validate the Engineering Notes layout.
 publishDate: 2026-10-02
-draft: false
+draft: true
 category: Distributed Systems
 tags:
   - Placeholder
