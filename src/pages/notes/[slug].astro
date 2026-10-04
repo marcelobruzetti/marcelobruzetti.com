@@ -17,6 +17,8 @@ export async function getStaticPaths() {
 
 const { note } = Astro.props;
 const { Content } = await render(note);
+const seoTitle = note.data.seo?.title ?? note.data.title;
+const seoDescription = note.data.seo?.description ?? note.data.description;
 const formatDate = (date: Date) =>
 	new Intl.DateTimeFormat('en', {
 		day: 'numeric',
@@ -26,7 +28,7 @@ const formatDate = (date: Date) =>
 	}).format(date);
 ---
 
-<BaseLayout title={note.data.title} description={note.data.description}>
+<BaseLayout title={seoTitle} description={seoDescription}>
 	<article class="note-detail content-section">
 		<div class="page-container">
 			<nav class="note-back-link" aria-label="Note navigation">
